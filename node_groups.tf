@@ -27,6 +27,7 @@ resource "aws_iam_role_policy_attachment" "node_groups_AmazonEC2ContainerRegistr
 }
 
 resource "aws_iam_role_policy_attachment" "node_groups_additional_policies" {
+  count = length(var.workers_additional_policies) > 0 ? 1 : 0
   for_each = toset(var.workers_additional_policies)
 
   role       = aws_iam_role.node_groups[0].name
